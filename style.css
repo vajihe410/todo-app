@@ -1,0 +1,137 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+:root{
+    --color-primary:#f9d72f;
+    --color-background:#e6e6e6;
+    --color-task:#f7f7f7;
+    --color-success:#36d39a;
+    --color-warning:#fbbe23;
+    --color-error:#f87171 ;
+}
+body{
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-background);
+}
+.todoapp{
+    background-color: var(--color-task);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+    width: 940px;
+    height: 220px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+.todoapp h1{
+    font-size: 2rem;
+}
+.inputs input{
+    width: 416px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid var(--color-primary);
+    border-radius: 6px;
+    background-color: var(--color-task);
+    color: gray;
+}
+.inputs input:focus{
+    outline: none;
+    border-width: 2px;
+}
+.inputs button{
+    background-color: var(--color-primary);
+    border: none;
+    height: 40px;
+    width: 50px;
+    border-radius: 4px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.filter-buttons button{
+    background-color: var(--color-primary);
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 13px;
+    margin-right: 6px;
+
+}
+button:hover{
+    opacity: 0.8;
+}
+#delete-all{
+    background-color: var(--color-error);
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 13px;
+}
+.status{
+    margin-top: 20px;
+    border-radius: 4px;
+    height: 30px;
+    text-align: center;
+    padding: 6px;
+}
+.error{
+    background-color: var(--color-error)
+}
+.success{
+    background-color: var(--color-success);
+}
+.todo-table{
+    margin-top: 20px;
+}
+.todo-table table{
+    width: 100%;
+    border-radius: 4px;
+}
+table thead{
+    background-color: rgb(204, 204, 204);
+    padding: 4px 0;
+    border-radius: 4px 4px 0 0;
+}
+table thead th{
+    padding: 10px;
+}
+table thead th:first-child{
+    border-top-left-radius:10px ;
+}
+table thead th:last-child{
+    border-top-right-radius:10px ;
+}
+table td{
+    text-align: center;
+    padding: 10px;
+    background-color: var(--color-task);
+}
+td button{
+    border: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+}
+td button:nth-child(1){
+    background-color: var(--color-primary);
+}
+td button:nth-child(2){
+    background-color: var(--color-success);
+}
+td button:nth-child(3){
+    background-color: var(--color-error);
+}
