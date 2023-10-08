@@ -3,11 +3,19 @@ const dateInput = document.getElementById("add-date")
 const addButtion = document.getElementById("add-button")
 const showStatus = document.getElementById("show-status")
 
+
+const todos = JSON.parse(localStorage.getItem("todosData")) || []
+console.log(todos)
+
 const generatorId = ()=>{
     const id = Math.round(Math.random()*Math.random()*Math.pow(10,15))
     return id
 }
-generatorId()
+
+const saveToLocaleStorage = () =>{
+    localStorage.setItem("todosData" , JSON.stringify(todos))
+ }  
+
 const showAlert = (text,type) =>{
     showStatus.innerHTML=""
     const message = document.createElement("p");
@@ -15,10 +23,10 @@ const showAlert = (text,type) =>{
     message.classList.add("alert");
     message.classList.add(`${type}`);
     showStatus.appendChild(message)
-    setInterval(()=>{showStatus.style.display="none"},2000)
+    setTimeout(()=>{showStatus.style.display="none"},2000)
 };
 
-const todos = []
+
 
 const addTask = () => {
     const task = taskInput.value
@@ -29,11 +37,13 @@ const addTask = () => {
         date : date,
         completed : false,
     }
+    
     if(!task){
         showAlert("please enter todo","error")
     }
     else{
         todos.push(todo)
+        saveToLocaleStorage()
         taskInput.value = "";
         dateInput.value = "";
         showAlert("todo added successfullu","success")
@@ -41,3 +51,5 @@ const addTask = () => {
 }
 
 addButtion.addEventListener("click",addTask)
+
+
