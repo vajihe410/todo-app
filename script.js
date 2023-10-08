@@ -3,6 +3,11 @@ const dateInput = document.getElementById("add-date")
 const addButtion = document.getElementById("add-button")
 const showStatus = document.getElementById("show-status")
 
+const generatorId = ()=>{
+    const id = Math.round(Math.random()*Math.random()*Math.pow(10,15))
+    return id
+}
+generatorId()
 const showAlert = (text,type) =>{
     showStatus.innerHTML=""
     const message = document.createElement("p");
@@ -19,6 +24,7 @@ const addTask = () => {
     const task = taskInput.value
     const date = dateInput.value
     const todo = {
+        id : generatorId(),
         task : task,
         date : date,
         completed : false,
