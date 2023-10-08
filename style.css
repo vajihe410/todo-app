@@ -29,7 +29,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin-top: 40px;
+    margin: 40px auto 10px;
 }
 .todoapp h1{
     font-size: 2rem;
@@ -80,12 +80,18 @@ button:hover{
     border-radius: 4px;
     padding: 10px 13px;
 }
-.status{
-    margin-top: 20px;
-    border-radius: 4px;
-    height: 30px;
+
+#show-status{
+ width: 100%;
+ height: 40px;
+ display: flex;
+ align-items: center;
+}
+.alert{
+    width: 100%;
     text-align: center;
-    padding: 6px;
+    border-radius: 4px;
+    padding: 5px;
 }
 .error{
     background-color: var(--color-error)
