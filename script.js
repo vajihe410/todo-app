@@ -3,10 +3,13 @@ const dateInput = document.getElementById("add-date")
 const addButtion = document.getElementById("add-button")
 const showStatus = document.getElementById("show-status")
 const tableBody = document.querySelector("tbody")
+const deleteAll = document.getElementById("delete-all")
 
-const todos = JSON.parse(localStorage.getItem("todosData")) || []
+
+let todos = JSON.parse(localStorage.getItem("todosData")) || []
 
 console.log(todos)
+
 const generatorId = ()=>{
     const id = Math.round(Math.random()*Math.random()*Math.pow(10,15))
     return id
@@ -35,7 +38,7 @@ const displayTodos = () => {
     }
     else{
         todos.forEach(todo => {
-            console.log(todo)
+
             tableBody.innerHTML += `
                 <tr>
                     <td>${todo.task}</td>
@@ -53,6 +56,7 @@ const displayTodos = () => {
 
 }
 
+
 const addTask = () => {
     const task = taskInput.value
     const date = dateInput.value
@@ -69,14 +73,29 @@ const addTask = () => {
     else{
         todos.push(todo)
         saveToLocaleStorage();
-        displayTodos();
+        displayTodos(); 
         taskInput.value = "";
         dateInput.value = "";
         showAlert("todo added successfully","success")
+    }
+}
+const deleteAllHandler = () =>{
+    if(todos.length){
+        todos = []
+        saveToLocaleStorage()
+        displayTodos()
+        showAlert("Todos cleared successfully","success")
+    }
+    else{
+        showAlert("No items to clear","error")
     }
 }
 
 addButtion.addEventListener("click",addTask)
 
 window.addEventListener("load",displayTodos)
+
+
+
+deleteAll.addEventListener("click" , deleteAllHandler)
 
