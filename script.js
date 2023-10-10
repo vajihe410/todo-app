@@ -2,11 +2,11 @@ const taskInput = document.getElementById("add-task")
 const dateInput = document.getElementById("add-date")
 const addButtion = document.getElementById("add-button")
 const showStatus = document.getElementById("show-status")
-
+const tableBody = document.querySelector("tbody")
 
 const todos = JSON.parse(localStorage.getItem("todosData")) || []
-console.log(todos)
 
+console.log(todos)
 const generatorId = ()=>{
     const id = Math.round(Math.random()*Math.random()*Math.pow(10,15))
     return id
@@ -27,6 +27,31 @@ const showAlert = (text,type) =>{
 };
 
 
+const displayTodos = () => {
+    tableBody.innerHTML = ""
+    if(!todos.length){
+        tableBody.innerHTML = "<tr><td colspan='4'>No task found!</td></tr>";
+        return;
+    }
+    else{
+        todos.forEach(todo => {
+            console.log(todo)
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${todo.task}</td>
+                    <td>${todo.date || "No Date"}</td>
+                    <td>${todo.completed ? "Completed" : "Pending"}</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Do</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                `;
+        }); 
+    }
+
+}
 
 const addTask = () => {
     const task = taskInput.value
@@ -43,13 +68,15 @@ const addTask = () => {
     }
     else{
         todos.push(todo)
-        saveToLocaleStorage()
+        saveToLocaleStorage();
+        displayTodos();
         taskInput.value = "";
         dateInput.value = "";
-        showAlert("todo added successfullu","success")
+        showAlert("todo added successfully","success")
     }
 }
 
 addButtion.addEventListener("click",addTask)
 
+window.addEventListener("load",displayTodos)
 
