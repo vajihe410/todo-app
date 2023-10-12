@@ -5,6 +5,7 @@ const showStatus = document.getElementById("show-status")
 const tableBody = document.querySelector("tbody")
 const deleteAll = document.getElementById("delete-all")
 const editButtion = document.getElementById("edit-button")
+const filterButtons = document.querySelectorAll(".filter")
 
 let todos = JSON.parse(localStorage.getItem("todosData")) || []
 
@@ -30,14 +31,15 @@ const showAlert = (text,type) =>{
 };
 
 
-const displayTodos = () => {
+const displayTodos = (data) => {
+    let todosList = data || todos
     tableBody.innerHTML = ""
-    if(!todos.length){
+    if(!todosList.length){
         tableBody.innerHTML = "<tr><td colspan='4'>No task found!</td></tr>";
         return;
     }
     else{
-        todos.forEach(todo => {
+        todosList.forEach(todo => {
             tableBody.innerHTML += `
                 <tr>
                     <td>${todo.task}</td>
@@ -125,8 +127,27 @@ const applayEditHandler = (event) => {
     displayTodos()
     showAlert("edit todo successfully", "success")
 }
-window.addEventListener("load",displayTodos)
+
+const filterHandler = (event) => {
+    const filterName = event.target.dataset.filter
+    let filterdTodos = null
+    switch (filterName) {
+        case "pending":
+            filterdTodos = todos.filter(todo => todo.completed = false)
+            break;
+        case "completed":
+            filterdTodos = todos.filter(todo => todo.completed = false)
+            break;
+        default:
+            filterdTodos = todos
+            break;
+    }
+    displayTodos(filterdTodos)
+}
+filterButtons.forEach(filterButton => filterButton.addEventListener("click" , filterHandler))
+window.addEventListener("load",() => displayTodos())
 addButtion.addEventListener("click",addTask)
 deleteAll.addEventListener("click" , deleteAllHandler)
 editButtion.addEventListener("click",applayEditHandler)
+
 
