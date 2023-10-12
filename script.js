@@ -5,7 +5,6 @@ const showStatus = document.getElementById("show-status")
 const tableBody = document.querySelector("tbody")
 const deleteAll = document.getElementById("delete-all")
 
-
 let todos = JSON.parse(localStorage.getItem("todosData")) || []
 
 console.log(todos)
@@ -38,7 +37,6 @@ const displayTodos = () => {
     }
     else{
         todos.forEach(todo => {
-
             tableBody.innerHTML += `
                 <tr>
                     <td>${todo.task}</td>
@@ -46,8 +44,8 @@ const displayTodos = () => {
                     <td>${todo.completed ? "Completed" : "Pending"}</td>
                     <td>
                         <button>Edit</button>
-                        <button>Do</button>
-                        <button>Delete</button>
+                        <button onclick="editHandler(${todo.id})">${todo.completed ? "Undo": "Do"}</button>
+                        <button onclick="deleteHandler('${todo.id}')">Delete</button>
                     </td>
                 </tr>
                 `;
@@ -91,11 +89,22 @@ const deleteAllHandler = () =>{
     }
 }
 
-addButtion.addEventListener("click",addTask)
+ const deleteHandler = (id) =>{
+    const newTodos = todos.filter(todo => todo.id !== id)
+    todos = newTodos;
+    saveToLocaleStorage();
+    displayTodos();
+} 
+
+const editHandler = (id) =>{
+    const todo = todos.find(todo => {todo.id === id});
+    console.log(todo)
+    todo.completed = !todo.completed;
+    saveToLocaleStorage()
+    displayTodos()
+}
 
 window.addEventListener("load",displayTodos)
-
-
-
+addButtion.addEventListener("click",addTask)
 deleteAll.addEventListener("click" , deleteAllHandler)
 
