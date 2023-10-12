@@ -124,6 +124,7 @@ table td{
     text-align: center;
     padding: 10px;
     background-color: var(--color-task);
+    width: 25%;
 }
 td button{
     border: none;
