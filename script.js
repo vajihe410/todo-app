@@ -4,6 +4,7 @@ const addButtion = document.getElementById("add-button")
 const showStatus = document.getElementById("show-status")
 const tableBody = document.querySelector("tbody")
 const deleteAll = document.getElementById("delete-all")
+const editButtion = document.getElementById("edit-button")
 
 let todos = JSON.parse(localStorage.getItem("todosData")) || []
 
@@ -43,18 +44,15 @@ const displayTodos = () => {
                     <td>${todo.date || "No Date"}</td>
                     <td>${todo.completed ? "Completed" : "Pending"}</td>
                     <td>
-                        <button>Edit</button>
-                        <button onclick="editHandler(${todo.id})">${todo.completed ? "Undo": "Do"}</button>
-                        <button onclick="deleteHandler('${todo.id}')">Delete</button>
+                        <button onclick="editHandler(${todo.id})">Edit</button>
+                        <button onclick="toggleHandler(${todo.id})">${todo.completed ? "Undo": "Do"}</button>
+                        <button onclick="deleteHandler(${todo.id})">Delete</button>
                     </td>
                 </tr>
                 `;
         }); 
     }
-
 }
-
-
 const addTask = () => {
     const task = taskInput.value
     const date = dateInput.value
@@ -96,7 +94,7 @@ const deleteAllHandler = () =>{
     displayTodos();
 } 
 
-const editHandler = (id) =>{
+const toggleHandler = (id) =>{
     const todo = todos.find(todo => {todo.id === id});
     console.log(todo)
     todo.completed = !todo.completed;
@@ -104,7 +102,31 @@ const editHandler = (id) =>{
     displayTodos()
 }
 
+const editHandler = (id) => {
+    const todo = todos.find(todo => todo.id === id)
+    console.log(todo)
+    taskInput.value = todo.task;
+    dateInput.value = todo.date;
+    addButtion.style.display = "none"
+    editButtion.style.display = "inline-block"
+    editButtion.dataset.id = id
+}
+const applayEditHandler = (event) => {
+    const id =event.target.dataset.id
+    const todo = todos.find(todo => todo.id === id)
+    console.log(todo)
+    todo.task = taskInput.value
+    todo.date = dateInput.value
+    taskInput = ""
+    dateInput = ""
+    editButtion.style.display = "none"
+    addButtion.style.display = "inline-block"
+    saveToLocaleStorage()
+    displayTodos()
+    showAlert("edit todo successfully", "success")
+}
 window.addEventListener("load",displayTodos)
 addButtion.addEventListener("click",addTask)
 deleteAll.addEventListener("click" , deleteAllHandler)
+editButtion.addEventListener("click",applayEditHandler)
 
